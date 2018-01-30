@@ -1,0 +1,33 @@
+{% load menu %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="/static/rbac/menu.css" />
+    {% block css %} {% endblock %}
+</head>
+<body>
+<div class="pg-header">
+    <div class="logo">
+        NB管理系统
+    </div>
+</div>
+<div class="pg-content">
+    <div class="menu">
+        {% menu_html request %}
+
+    </div>
+    <div class="body">
+        {% block body %}{% endblock %}
+    </div>
+
+
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script src="/static/rbac/menu.js"></script>
+</div>
+</body>
+</html>
+
+
+

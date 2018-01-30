@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}权限重置{% endblock %}
+
+{% block body %}
+    <h1>权限重置</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="name">
+        <input type="submit" value="提交">
+    </form>
+    <h2>用户列表</h2>
+    <ul>
+        {% for item in user_list %}
+            <li>{{ item.name }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

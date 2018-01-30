@@ -1,0 +1,69 @@
+
+body {
+    margin: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.pg-header {
+    height: 48px;
+    background-color: #101010;
+    line-height: 48px;
+}
+
+.pg-header .logo {
+    display: inline-block;
+    width: 230px;
+    text-align: center;
+    font-size: 18px;
+    color: #5cb85c;
+    font-weight: bold;
+}
+
+.pg-content .menu {
+    position: absolute;
+    top: 48px;
+    bottom: 0;
+    width: 220px;
+    border-right: 1px solid #ddd;
+    background-color: #293543;
+}
+
+.pg-content .menu .title {
+    padding: 8px;
+    background-color: #293543;
+    /*border-bottom: 1px solid #dddddd;*/
+    /*border-top: 1px solid #dddddd;*/
+    cursor: pointer;
+    color: #9EA1A3;
+
+}
+
+.pg-content .menu .item .children {
+}
+
+.pg-content .menu .item .children a {
+    border-left: 3px solid transparent;
+    display: block;
+    padding: 5px;
+    padding-left: 20px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.pg-content .menu .item .children a.active {
+    border-left: 3px solid #293543;
+    font-weight: bold;
+    background-color: #e7ecf1;
+}
+
+.pg-content .body {
+    position: absolute;
+    top: 48px;
+    left: 230px;
+    right: 0;
+    bottom: 0;
+    overflow: scroll;
+}

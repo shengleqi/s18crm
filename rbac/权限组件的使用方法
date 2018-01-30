@@ -1,0 +1,159 @@
+1. 清除rbac/migrations目录下除了__init__.py 以外的所有文件。
+
+2. 业务用户表继承rabc的UserInfo表，并生成数据库表
+
+   rbac的用户表结构已经发生改变：
+
+        class UserInfo(models.Model):
+            """
+            用户表
+            """
+            name = models.CharField(verbose_name='用户名', max_length=32)
+            password = models.CharField(verbose_name='密码', max_length=64)
+            email = models.CharField(verbose_name='邮箱', max_length=32)
+            session_key = models.CharField(verbose_name='当前登录用户的session_key', max_length=40, null=True, blank=True)
+
+            # 1. to="Role" 改为 to=Role，因为被继承后会造成Role表不知道去哪里找。
+            roles = models.ManyToManyField(verbose_name='拥有的所有角色', to=Role)
+
+            # 2. 这是为"抽象类"，让其他models类继承
+            class Meta:
+                abstract = True
+
+            def __str__(self):
+                return self.name
+
+
+3. 设置配置文件
+
+    # 注册app
+    INSTALLED_APPS = [
+        ...
+        'rbac.apps.RbacConfig',
+    ]
+
+    # 应用中间件
+    MIDDLEWARE = [
+        ...
+        'rbac.middlewares.rbac.RbacMiddleware',
+    ]
+
+    # 保存权限信息的session key
+    PERMISSION_SESSION_KEY = 'UKY7F97FUYN'
+
+    # 保存菜单信息的session key
+    MENU_LIST_SESSION_KEY = "FU87FTPMF"
+
+    # 白名单
+    PERMISSION_VALID_URL = [
+        '/login/',
+        '/admin/.*',
+    ]
+
+4. 基于admin录入权限
+
+
+5. 编写视图函数，使用特殊的返回值
+    from rbac.http.shortcuts import render as rbac_render
+
+    def users(request):
+        """
+        用户列表
+        :param request:
+        :return:
+        """
+        user_list = [
+            {'id': 1, 'name': '铁蛋', 'email': 'td@live.com'},
+            {'id': 2, 'name': '钢蛋', 'email': 'td@live.com'},
+            {'id': 3, 'name': '金蛋', 'email': 'td@live.com'},
+            {'id': 4, 'name': '银蛋', 'email': 'td@live.com'},
+        ]
+        return rbac_render(request, 'users.html', {'user_list': user_list})
+
+    或
+    from rbac.http.shortcuts import render as rbac_render
+
+    class OrderPermission(BasePermission):
+        """
+        自定制权限控制类
+        """
+        pass
+
+
+    def orders(request):
+        """
+        用户列表
+        :param request:
+        :return:
+        """
+        user_list = [
+            {'id': 1, 'name': '铁蛋', 'email': 'td@live.com'},
+            {'id': 2, 'name': '钢蛋', 'email': 'td@live.com'},
+            {'id': 3, 'name': '金蛋', 'email': 'td@live.com'},
+            {'id': 4, 'name': '银蛋', 'email': 'td@live.com'},
+        ]
+        return rbac_render(request, 'users.html', {'user_list': user_list}, OrderPermission)
+
+6. 如果想要使用rbac生成动态菜单，那么就在业务代码可以直接继承示例含有菜单功能的模板，也可以自己定制的html模板或母版，在其中引入生成代码的功能代码。
+
+    直接使用示例模板：
+        {% extends 'rbac/layout.html' %}
+
+        {% block title %}用户列表{% endblock %}
+
+
+        {% block css %} {% endblock %}
+
+
+        {% block body %}
+            <h1>用户列表</h1>
+
+        {% endblock %}
+
+
+        {% block js %} {% endblock %}
+
+    手动引入菜单功能：
+        {% load menu %} <!-- 1. 导入rbac/templatetags目录下menu文件 -->
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>{% block title %} {% endblock %}</title>
+
+            <!-- 2. 导入菜单需要的样式 -->
+            <link rel="stylesheet" href="/static/rbac/menu.css" />
+        </head>
+        <body>
+        <div class="pg-header">
+            <div class="logo">
+                NB管理系统
+            </div>
+        </div>
+        <div class="pg-content">
+            <div class="menu">
+
+                <!-- 3. 执行menu_html方法，生成菜单 -->
+                {% menu_html request %}
+
+            </div>
+            <div class="body">
+                <h1>这里是内容</h1>
+            </div>
+
+
+            <script src="/static/jquery-1.12.4.js"></script>
+            <!-- 4. 导入菜单需要的js效果 -->
+            <script src="/static/rbac/menu.js"></script>
+        </div>
+        </body>
+        </html>
+
+
+7. 权限重置
+    a. 去用户表中获取用户session_key
+    b. 根据session_key 在session表中将指定数据删除
+
+
+
+

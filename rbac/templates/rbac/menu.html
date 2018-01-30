@@ -1,0 +1,10 @@
+{% for item in menu_list %}
+    <div class="item">
+        <div class="title">{{ item.title }}</div>
+        <div class="children {{ item.class }}">
+            {% for per in item.children %}
+                <a href="{{ per.url }}" class="{{ per.class }}">{{ per.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,26 @@
+
+介绍：
+    专门用于为其他App提供快速实现增删改查功能的组件
+
+设计思路：
+    1. 用户向 某个地方 去注册数据库表models.UserInfo
+    2. 读取 某个地方 中所有的类，为每个类生成4个URL
+
+知识点：
+    1. 在django启动时，先解释一个文件，在
+        from django.apps import AppConfig
+
+        class StarkConfig(AppConfig):
+            name = 'stark'
+            def ready(self):
+                from django.utils.module_loading import autodiscover_modules
+                # 去程序中已经注册的所有app目录中找：stark.py 并执行
+                autodiscover_modules('stark')
+      2. 通过StarkSite类的urls方法：
+                for model_class,config_obj in self._registry.items():
+                app_label = model_class._meta.app_label
+                model_name = model_class._meta.model_name
+                temp = url(r'^%s/%s/' %(app_label,model_name), self.login)
+                pts.append(temp)
+
+

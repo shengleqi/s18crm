@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <style>
+        .comb-search .item{
+            margin: 5px 0;
+        }
+        .comb-search .item a{
+            border: 1px solid #dddddd;
+            display: inline-block;
+            padding: 3px 8px;
+        }
+        .comb-search .item a.active{
+            background-color: #337ab7;
+            color: white;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block  body %}
+    <div>
+        <h1>列表页面</h1>
+        <!-- 组合搜索开始 -->
+        <div class="comb-search">
+            {% for row in cl.show_comb_search %}
+
+                <div class="item">
+                    {% for item in row %}
+
+                        {{ item }}
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- 组合搜索结束 -->
+
+        <!-- 搜索 -->
+        {% if cl.search_list %}
+            <div style="float: right">
+                <form class="form-inline" method="get">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="key" placeholder="请输入关键字" value="{{ cl.search_value }}">
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  </button>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if cl.show_add_btn %}
+        <div style="margin: 5px 0">
+            <a href="{{ cl.add_url }}" class="btn btn-success">添加</a>
+        </div>
+        {% endif %}
+
+        <form class="form-inline" method="post">
+            {% csrf_token %}
+
+            {% if cl.action_list %}
+                <div style="margin: 5px 0">
+                    <!-- 批量操作 -->
+                      <div class="form-group">
+                          <select class="form-control" name="xxxx">
+                              <option value="">请选择操作</option>
+                              {% for ac in cl.action_list %}
+                                  <option value="{{ ac.funcname }}">{{ ac.name }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">执行</button>
+                </div>
+            {% endif %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        {% for item in cl.header_list %}
+                            <th>{{ item }}</th>
+                        {% endfor%}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in cl.body_list %}
+                    <tr>
+                        {% for col in row %}
+                            <td>{{ col }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+         </form>
+        <ul class="pagination">
+            {{ cl.page_obj.bootstrap_page_html }}
+        </ul>
+    </div>
+
+
+
+{% endblock %}
