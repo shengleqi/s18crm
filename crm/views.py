@@ -23,7 +23,7 @@ def login(request):
             # 权限信息放入session
             # 菜单信息放入session
             permission.init_permission(user, request)
-            return redirect('/depart/')
+            return redirect('/stark/crm/department/')
 
         return render(request, 'login.html')
 
@@ -54,4 +54,4 @@ def depart(request):
     :param request:
     :return:
     """
-    return render(request,'depart.html')
+    return render(request,'/stark/crm/department/')

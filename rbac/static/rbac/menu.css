@@ -4,13 +4,13 @@ body {
 }
 
 .hide {
-    display: none;
+    /*display: none;*/
 }
 
 .pg-header {
-    height: 48px;
+    height: 60px;
     background-color: #101010;
-    line-height: 48px;
+    line-height: 60px;
 }
 
 .pg-header .logo {
@@ -18,13 +18,13 @@ body {
     width: 230px;
     text-align: center;
     font-size: 18px;
-    color: #5cb85c;
+    color: #79f779;
     font-weight: bold;
 }
 
 .pg-content .menu {
     position: absolute;
-    top: 48px;
+    top: 60px;
     bottom: 0;
     width: 220px;
     border-right: 1px solid #ddd;
@@ -61,7 +61,7 @@ body {
 
 .pg-content .body {
     position: absolute;
-    top: 48px;
+    top: 60px;
     left: 230px;
     right: 0;
     bottom: 0;

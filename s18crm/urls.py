@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^stark/', v1.site.urls),
     url(r'^login/$', views.login),
-    url(r'^depart/$', views.depart),
+    # url(r'^depart/$', views.depart),
     url(r'^reset/permission/$', views.reset_permission),
 ]

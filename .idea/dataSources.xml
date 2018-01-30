@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db" uuid="2d265a5e-4765-4564-a7df-dcc7251d780f">
-      <driver-ref>4e770bc5-26c4-488c-b1c1-0f8c393bb585</driver-ref>
+    <data-source source="LOCAL" name="db" uuid="19faf5c0-cc3f-480e-bb00-bece2ea8280e">
+      <driver-ref>197e2a41-fef6-4147-9146-83339b783aed</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>SQLite</remarks>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Administrator\PycharmProjects\s18crm\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:E:\=实战培训-201607\Python-18\Python作业\day28\day28课上所有\s18crm\db.sqlite3</jdbc-url>
       <driver-properties>
         <property name="enable_load_extension" value="true" />
       </driver-properties>

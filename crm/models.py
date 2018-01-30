@@ -312,3 +312,25 @@ class StudyRecord(models.Model):
         return "{0}-{1}".format(self.course_record, self.student)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
