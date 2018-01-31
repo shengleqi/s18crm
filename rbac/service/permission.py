@@ -37,6 +37,7 @@ def init_permission(user, request):
             }
 
     request.session[settings.PERMISSION_SESSION_KEY] = permission_dict
+    print("permission_dict",permission_dict)
 
     # ########### 用于做菜单 ###########
     menu_dict = {}
